@@ -407,33 +407,58 @@ export default function App() {
     setSelectedPreviewIndexes([]);
   };
 
+  // const downloadPreviewSelection = async () => {
+  //   if (previewItems.length === 0) return;
+
+  //   const indexes =
+  //     selectedPreviewIndexes.length > 0
+  //       ? selectedPreviewIndexes
+  //       : previewItems.map((_, index) => index);
+
+  //   const zip = new JSZip();
+
+  //   indexes.forEach((index) => {
+  //     const item = previewItems[index];
+
+  //     zip.file(item.name, item.blob);
+  //   });
+
+  //   const content = await zip.generateAsync({
+  //     type: "blob",
+  //     compression: "DEFLATE",
+  //   });
+
+  //   saveAs(content, "preview.zip");
+
+  //   setSelectedPreviewIndexes([]);
+  //   setPreviewDialogOpen(false);
+  // };
+
   const downloadPreviewSelection = async () => {
     if (previewItems.length === 0) return;
 
     const indexes =
       selectedPreviewIndexes.length > 0
         ? selectedPreviewIndexes
-        : previewItems.map((_, index) => index);
+        : previewItems.map(
+          (_, index) => index
+        );
 
-    const zip = new JSZip();
+    for (let i = 0; i < indexes.length; i++) {
+      const index = indexes[i];
 
-    indexes.forEach((index) => {
       const item = previewItems[index];
 
-      zip.file(item.name, item.blob);
-    });
+      downloadBlob(item.blob, item.name);
 
-    const content = await zip.generateAsync({
-      type: "blob",
-      compression: "DEFLATE",
-    });
-
-    saveAs(content, "preview.zip");
+      await new Promise((resolve) =>
+        setTimeout(resolve, 150)
+      );
+    }
 
     setSelectedPreviewIndexes([]);
     setPreviewDialogOpen(false);
   };
-
 
   return (
     <div className="app">
@@ -532,8 +557,8 @@ export default function App() {
                 }
               >
                 {loading
-                  ? `Exporting ${progress}%`
-                  : "Export ZIP"}
+                  ? `Tải xuống ${progress}%`
+                  : "Tải xuống tất cả ảnh"}
               </button>
 
               <button

@@ -479,7 +479,7 @@ export default function App() {
                 setSelectedMode("normal")
               }
             >
-              <div>
+              <Stack spacing={1} sx={{alignItems: "baseline"}} justifyContent="left" alignItems="baseline" direction="column">
                 <h2>Ghép thường</h2>
 
                 <p>
@@ -487,9 +487,9 @@ export default function App() {
                 </p>
 
                 <small>
-                  10 hình ảnh → 5 ảnh ghép
+                  10 ảnh → 5 ảnh ghép
                 </small>
-              </div>
+              </Stack>
 
               <span>→</span>
             </button>
@@ -500,17 +500,15 @@ export default function App() {
                 setSelectedMode("factorial")
               }
             >
-              <div>
+              <Stack spacing={1} sx={{alignItems: "baseline"}} justifyContent="left" alignItems="baseline" direction="column">
                 <h2>Ghép ngẫu nhiên</h2>
-
                 <p>
                   Tạo tất cả các tổ hợp có thể của ảnh
                 </p>
-
                 <small>
-                  10 hình ảnh → 45 ảnh kết quả
+                  10 ảnh → 45 ảnh ghép
                 </small>
-              </div>
+              </Stack>
 
               <span>→</span>
             </button>

@@ -279,53 +279,53 @@ export default function App() {
     }
   };
 
-  // const generateImages = async () => {
-  //   if (files.length < 2) {
-  //     alert("Please import at least 2 images.");
-  //     return;
-  //   }
+  const generateImages = async () => {
+    if (files.length < 2) {
+      alert("Please import at least 2 images.");
+      return;
+    }
 
-  //   setLoading(true);
-  //   setProgress(0);
+    setLoading(true);
+    setProgress(0);
 
-  //   try {
-  //     const zip = new JSZip();
+    try {
+      const zip = new JSZip();
 
-  //     const pairs = buildPairs();
+      const pairs = buildPairs();
 
-  //     for (let i = 0; i < pairs.length; i++) {
-  //       const [first, second] = pairs[i];
+      for (let i = 0; i < pairs.length; i++) {
+        const [first, second] = pairs[i];
 
-  //       const blob = await composeVerticalImages(
-  //         first.file,
-  //         second.file
-  //       );
+        const blob = await composeVerticalImages(
+          first.file,
+          second.file
+        );
 
-  //       zip.file(`result_${i + 1}.jpg`, blob);
+        zip.file(`result_${i + 1}.jpg`, blob);
 
-  //       setProgress(
-  //         Math.round(((i + 1) / pairs.length) * 100)
-  //       );
-  //     }
+        setProgress(
+          Math.round(((i + 1) / pairs.length) * 100)
+        );
+      }
 
-  //     const content = await zip.generateAsync({
-  //       type: "blob",
-  //       compression: "DEFLATE",
-  //     });
+      const content = await zip.generateAsync({
+        type: "blob",
+        compression: "DEFLATE",
+      });
 
-  //     saveAs(content, "images.zip");
-  //   } catch (error) {
-  //     console.error(error);
+      saveAs(content, "images.zip");
+    } catch (error) {
+      console.error(error);
 
-  //     alert(
-  //       "Error exporting ZIP: " +
-  //       (error?.message || "Unknown")
-  //     );
-  //   } finally {
-  //     setLoading(false);
-  //     setProgress(0);
-  //   }
-  // };
+      alert(
+        "Error exporting ZIP: " +
+        (error?.message || "Unknown")
+      );
+    } finally {
+      setLoading(false);
+      setProgress(0);
+    }
+  };
 
   const downloadBlob = (blob, filename) => {
     const url = URL.createObjectURL(blob);
@@ -345,54 +345,54 @@ export default function App() {
     }, 1000);
   };
 
-  const generateImages = async () => {
-    if (files.length < 2) {
-      alert("Please import at least 2 images.");
-      return;
-    }
+  // const generateImages = async () => {
+  //   if (files.length < 2) {
+  //     alert("Please import at least 2 images.");
+  //     return;
+  //   }
 
-    setLoading(true);
-    setProgress(0);
+  //   setLoading(true);
+  //   setProgress(0);
 
-    try {
-      const pairs = buildPairs();
+  //   try {
+  //     const pairs = buildPairs();
 
-      for (let i = 0; i < pairs.length; i++) {
-        const [first, second] = pairs[i];
+  //     for (let i = 0; i < pairs.length; i++) {
+  //       const [first, second] = pairs[i];
 
-        const blob = await composeVerticalImages(
-          first.file,
-          second.file
-        );
+  //       const blob = await composeVerticalImages(
+  //         first.file,
+  //         second.file
+  //       );
 
-        downloadBlob(
-          blob,
-          `result_${i + 1}.jpg`
-        );
+  //       downloadBlob(
+  //         blob,
+  //         `result_${i + 1}.jpg`
+  //       );
 
-        setProgress(
-          Math.round(
-            ((i + 1) / pairs.length) * 100
-          )
-        );
+  //       setProgress(
+  //         Math.round(
+  //           ((i + 1) / pairs.length) * 100
+  //         )
+  //       );
 
-        // delay nhẹ tránh browser block download
-        await new Promise((resolve) =>
-          setTimeout(resolve, 150)
-        );
-      }
-    } catch (error) {
-      console.error(error);
+  //       // delay nhẹ tránh browser block download
+  //       await new Promise((resolve) =>
+  //         setTimeout(resolve, 150)
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
 
-      alert(
-        "Error exporting images: " +
-        (error?.message || "Unknown")
-      );
-    } finally {
-      setLoading(false);
-      setProgress(0);
-    }
-  };
+  //     alert(
+  //       "Error exporting images: " +
+  //       (error?.message || "Unknown")
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //     setProgress(0);
+  //   }
+  // };
 
   const togglePreviewSelection = (index) => {
     setSelectedPreviewIndexes((prev) =>
@@ -407,58 +407,58 @@ export default function App() {
     setSelectedPreviewIndexes([]);
   };
 
-  // const downloadPreviewSelection = async () => {
-  //   if (previewItems.length === 0) return;
-
-  //   const indexes =
-  //     selectedPreviewIndexes.length > 0
-  //       ? selectedPreviewIndexes
-  //       : previewItems.map((_, index) => index);
-
-  //   const zip = new JSZip();
-
-  //   indexes.forEach((index) => {
-  //     const item = previewItems[index];
-
-  //     zip.file(item.name, item.blob);
-  //   });
-
-  //   const content = await zip.generateAsync({
-  //     type: "blob",
-  //     compression: "DEFLATE",
-  //   });
-
-  //   saveAs(content, "preview.zip");
-
-  //   setSelectedPreviewIndexes([]);
-  //   setPreviewDialogOpen(false);
-  // };
-
   const downloadPreviewSelection = async () => {
     if (previewItems.length === 0) return;
 
     const indexes =
       selectedPreviewIndexes.length > 0
         ? selectedPreviewIndexes
-        : previewItems.map(
-          (_, index) => index
-        );
+        : previewItems.map((_, index) => index);
 
-    for (let i = 0; i < indexes.length; i++) {
-      const index = indexes[i];
+    const zip = new JSZip();
 
+    indexes.forEach((index) => {
       const item = previewItems[index];
 
-      downloadBlob(item.blob, item.name);
+      zip.file(item.name, item.blob);
+    });
 
-      await new Promise((resolve) =>
-        setTimeout(resolve, 150)
-      );
-    }
+    const content = await zip.generateAsync({
+      type: "blob",
+      compression: "DEFLATE",
+    });
+
+    saveAs(content, "preview.zip");
 
     setSelectedPreviewIndexes([]);
     setPreviewDialogOpen(false);
   };
+
+  // const downloadPreviewSelection = async () => {
+  //   if (previewItems.length === 0) return;
+
+  //   const indexes =
+  //     selectedPreviewIndexes.length > 0
+  //       ? selectedPreviewIndexes
+  //       : previewItems.map(
+  //         (_, index) => index
+  //       );
+
+  //   for (let i = 0; i < indexes.length; i++) {
+  //     const index = indexes[i];
+
+  //     const item = previewItems[index];
+
+  //     downloadBlob(item.blob, item.name);
+
+  //     await new Promise((resolve) =>
+  //       setTimeout(resolve, 150)
+  //     );
+  //   }
+
+  //   setSelectedPreviewIndexes([]);
+  //   setPreviewDialogOpen(false);
+  // };
 
   return (
     <div className="app">
